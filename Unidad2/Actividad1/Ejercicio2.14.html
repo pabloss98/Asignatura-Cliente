@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numero;
+        let adivinanza;
+        let intentos = 5;
+
+        numero = parseInt(prompt("Introduce un numero secreto"));
+
+        for(let i = 1; i<intentos; i++){
+            adivinanza = parseInt(prompt("Intenta adivinar el número"));
+
+
+            if(adivinanza == numero){
+                alert("Bien, has acertado el numero en el intento " + i);
+                break;
+            }else if(i < intentos){
+                alert("Error, ese no es el numero");
+            }
+        }
+        if(adivinanza !== numero){
+        alert("Has perdido, se te acabaron los intentos, el numero era " + numero);
+        }
+    </script>
+</body>
+</html>
