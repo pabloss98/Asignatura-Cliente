@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function mostrarMenu() {
+    console.log("Menú:");
+    console.log("1. Salir");
+    console.log("2. Sumatorio");
+    console.log("3. Factorial");
+}
+
+function calcularSumatorio(n) {
+    let sumatorio = 0;
+    for (let i = 1; i <= n; i++) {
+        sumatorio += i;
+    }
+    return sumatorio;
+}
+
+function calcularFactorial(n) {
+    let factorial = 1;
+    for (let i = 1; i <= n; i++) {
+        factorial *= i;
+    }
+    return factorial;
+}
+
+function iniciarPrograma() {
+    let opcion;
+
+    do {
+        mostrarMenu();
+        opcion = parseInt(prompt("Elige una opción (1, 2 o 3):"));
+
+        switch (opcion) {
+            case 1:
+                console.log("Has elegido salir. Fin del programa.");
+                break;
+            case 2:
+                let numeroSumatorio = parseInt(prompt("Introduce un número para calcular su sumatorio:"));
+                let resultadoSumatorio = calcularSumatorio(numeroSumatorio);
+                console.log(`El sumatorio de ${numeroSumatorio} es: ${resultadoSumatorio}`);
+                break;
+            case 3:
+                let numeroFactorial = parseInt(prompt("Introduce un número para calcular su factorial:"));
+                let resultadoFactorial = calcularFactorial(numeroFactorial);
+                console.log(`El factorial de ${numeroFactorial} es: ${resultadoFactorial}`);
+                break;
+            default:
+                console.log("Opción no válida. Inténtalo de nuevo.");
+        }
+    } while (opcion !== 1);
+}
+
+
+iniciarPrograma();
+
+    </script>
+</body>
+</html>

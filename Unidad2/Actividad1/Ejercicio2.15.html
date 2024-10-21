@@ -6,6 +6,35 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        
+        let resultado;
+        let nota;
+
+        nota = parseInt(prompt("Introduce tu nota"));
+
+        switch (true) {
+            case (nota >= 0 && nota < 5):
+                resultado = "Suspenso";
+                break;
+            case (nota >= 5 && nota < 6):
+                resultado = "Aprobado";
+                break;
+            case (nota >= 6 && nota < 7):
+                resultado = "Bien";
+                break;
+            case (nota >= 7 && nota < 9):
+                resultado = "Notable";
+                break; 
+            case (nota >= 9 && nota <= 10):
+                resultado = "Sobresaliente";
+                break;   
+            default:
+                resultado = "La nota no es valida";
+                break;
+            }
+            alert(resultado);
+        
+    </script>
 </body>
 </html>

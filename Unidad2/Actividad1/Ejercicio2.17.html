@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      function solicitarNumeros() {
+    let num1, num2;
+
+    do {
+        num1 = parseInt(prompt("Introduce el primer número (debe ser menor que 50):"));
+        num2 = parseInt(prompt("Introduce el segundo número (debe ser menor que 50):"));
+    } while (num1 >= 50 || num2 >= 50);
+
+    return [num1, num2];
+}
+
+function ejecutarIncrementoDecremento(num1, num2) {
+    let menor = Math.min(num1, num2);
+    let mayor = Math.max(num1, num2);
+
+    console.log(`Valores iniciales: Menor = ${menor}, Mayor = ${mayor}`);
+
+    while (menor < mayor) {
+        menor += 5;
+        mayor -= 2;
+
+        console.log(`Menor incrementado: ${menor}, Mayor decrementado: ${mayor}`);
+
+        if (menor >= mayor) {
+            console.log("Los valores se han cruzado o son iguales. Fin del programa.");
+            break;
+        }
+    }
+}
+
+
+let [numero1, numero2] = solicitarNumeros();
+ejecutarIncrementoDecremento(numero1, numero2);
+
+    </script>
+</body>
+</html>
