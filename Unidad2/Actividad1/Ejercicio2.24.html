@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let mes = parseInt(prompt("Introduce el número del mes (1-12):"));
+        let anio = parseInt(prompt("Introduce el año:"));
+
+        let dias = new Date(anio, mes, 0).getDate();
+
+        console.log("El mes " + mes + " tiene " + dias + " días.");
+
+    </script>
+</body>
+</html>

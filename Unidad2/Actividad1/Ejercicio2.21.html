@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let personas;
+        let numperso;
+        let hombre = 0;
+        let mujer = 0;
+
+        numperso = parseInt(prompt("Indica el número de personas"));
+
+        for(let i = 1; i <= numperso; i++){
+            personas = parseInt(prompt("Indica si eres 1.hombre o 2.mujer introduciendo el número por teclado"));
+
+            switch(personas){
+
+                case 1:
+                    hombre ++;
+                    break;
+
+                case 2:
+                    mujer ++;
+                    break;
+
+                default:
+                    prompt("Tienes que indicar una respuesta correcta");
+                    break;
+            }
+            
+        }
+
+        let porcentajeMujeres = (mujer / numperso) * 100;
+        let porcentajeHombres = (hombre / numperso) * 100;
+
+        console.log("Porcentaje de mujeres: " + porcentajeMujeres + "%");
+        console.log("Porcentaje de hombres: " + porcentajeHombres + "%");
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let apuesta = parseFloat(prompt("Introduce la cantidad que deseas apostar:"));
+
+        function lanzarMoneda() {
+            return Math.random() < 0.5 ? "cruz" : "cara";
+        }
+
+        let resultado = lanzarMoneda();
+
+        if (resultado === "cara") {
+            let ganancias = apuesta * 2;
+            console.log("¡Felicidades! Ha salido cara. Ganaste " + ganancias + " unidades.");
+        } else {
+            console.log("Lo siento, ha salido cruz. Has perdido tu apuesta de " + apuesta + " unidades.");
+        }
+
+    </script>
+</body>
+</html>
