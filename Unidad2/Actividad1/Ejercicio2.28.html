@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const v1 = 5;
+        const v2 = 3;
+        const v3 = 5;
+
+        const todasCero = (v1 === 0 && v2 === 0 && v3 === 0);
+        const todasPositivas = (v1 > 0 && v2 > 0 && v3 > 0);
+        const mismoSigno = (v1 >= 0 && v2 >= 0 && v3 >= 0) || (v1 <= 0 && v2 <= 0 && v3 <= 0);
+        const todosDistintos = (v1 !== v2 && v1 !== v3 && v2 !== v3);
+        const dosCoinciden = (v1 === v2 && v1 !== v3) || (v1 === v3 && v1 !== v2) || (v2 === v3 && v2 !== v1);
+        const maximoDosCoinciden = (v1 === v2 && v1 !== v3) || (v1 === v3 && v1 !== v2) || (v2 === v3 && v2 !== v1) || (v1 !== v2 && v1 !== v3 && v2 !== v3);
+        const v2EntreV1yV3 = (v1 < v2 && v2 < v3) || (v1 > v2 && v2 > v3);
+
+        console.log("Todas las variables son cero:", todasCero);
+        console.log("Todas las variables son positivas:", todasPositivas);
+        console.log("Todas las variables tienen el mismo signo:", mismoSigno);
+        console.log("Todos sus valores son distintos:", todosDistintos);
+        console.log("Dos de sus valores coinciden:", dosCoinciden);
+        console.log("Como máximo dos de sus valores coinciden:", maximoDosCoinciden);
+        console.log("El valor de v2 está comprendido entre los de v1 y v3:", v2EntreV1yV3);
+
+    </script>
+</body>
+</html>

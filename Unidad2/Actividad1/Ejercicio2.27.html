@@ -7,7 +7,33 @@
 </head>
 <body>
     <script>
-        
+
+        function esBisiesto(anio){
+            return (anio % 4 == 0 && (anio % 100 !== 0 || anio % 400 === 0));
+        }
+
+        function fechaCorrecta(dia, mes, anio){
+            if (anio <= 0) return false;
+
+            if (mes < 1 || mes > 12) return false;
+
+            const diasPorMes = [31, esBisiesto(anio) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+            if (dia < 1 || dia > diasPorMes[mes -1]) return false;
+
+            return true;
+        }
+
+        const dia = 29;
+        const mes = 3;
+        const anio = 2024;
+
+        if (fechaCorrecta(dia, mes, anio)){
+            alert("La fecha es correcta");
+        }else{
+            alert("La fecha es imcorrecta");
+        }
+
     </script>
 </body>
 </html>
