@@ -7,7 +7,106 @@
 </head>
 <body>
     <script>
-        
+
+        function validarcombinacion(combinacion){
+            if(combinacion.length !== 4){
+                return false;
+            }
+            return combinacion.every(num => num >= 0 && num <= 9);
+        }
+
+        function calcularMuertosHeridos(secreta, intento) {
+    /**
+     * Calcula los "muertos" y "heridos" en base a las reglas.
+     * Muertos: número correcto en la posición correcta.
+     * Heridos: número correcto en la posición incorrecta.
+     */
+    let muertos = 0;
+    let heridos = 0;
+
+    const secretaUsada = Array(4).fill(false);
+    const intentoUsado = Array(4).fill(false);
+
+    // Calcular muertos
+    for (let i = 0; i < 4; i++) {
+        if (secreta[i] === intento[i]) {
+            muertos++;
+            secretaUsada[i] = true;
+            intentoUsado[i] = true;
+        }
+    }
+
+    // Calcular heridos
+    for (let i = 0; i < 4; i++) {
+        if (!intentoUsado[i]) { // Si este intento no es un muerto
+            for (let j = 0; j < 4; j++) {
+                if (!secretaUsada[j] && intento[i] === secreta[j]) {
+                    heridos++;
+                    secretaUsada[j] = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    return { muertos, heridos };
+}
+
+function jugarMastermind() {
+    /**
+     * Juego principal de Mastermind.
+     */
+    const readline = require('readline-sync'); // Biblioteca para entradas en consola
+
+    // Pedir combinación secreta al Jugador 1
+    let secreta;
+    while (true) {
+        const entrada = readline.question("Jugador 1, introduce la combinación secreta (4 números entre 0 y 9 separados por espacio): ");
+        secreta = entrada.split(' ').map(Number);
+
+        if (validarCombinacion(secreta)) {
+            break;
+        } else {
+            console.log("Combinación inválida. Asegúrate de que son 4 números entre 0 y 9.");
+        }
+    }
+
+    console.clear(); // Limpia la pantalla para ocultar la combinación secreta
+
+    // Máximo de 8 intentos
+    const maxIntentos = 8;
+    for (let intentoNum = 1; intentoNum <= maxIntentos; intentoNum++) {
+        let intento;
+        while (true) {
+            const entrada = readline.question(`Jugador 2, intento ${intentoNum}/8: Introduce tu combinación (4 números separados por espacio): `);
+            intento = entrada.split(' ').map(Number);
+
+            if (validarCombinacion(intento)) {
+                break;
+            } else {
+                console.log("Combinación inválida. Asegúrate de que son 4 números entre 0 y 9.");
+            }
+        }
+
+        // Calcular muertos y heridos
+        const { muertos, heridos } = calcularMuertosHeridos(secreta, intento);
+        console.log(`Resultado: ${muertos} muertos, ${heridos} heridos.`);
+
+        // Verificar si el jugador adivina la combinación
+        if (muertos === 4) {
+            console.log("¡Felicidades, acertaste la combinación secreta!");
+            return;
+        }
+    }
+
+    // Si se agotan los intentos
+    console.log("Lo siento, se agotaron los intentos.");
+    console.log(`La combinación secreta era: ${secreta.join(' ')}`);
+}
+
+// Iniciar el juego
+jugarMastermind();
+
     </script>
 </body>
 </html>
