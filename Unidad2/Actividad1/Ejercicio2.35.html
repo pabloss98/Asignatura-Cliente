@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function multiplicarPorSumasSucesivas(a, b) {
+    let resultado = 0;
+    const esNegativo = (a < 0 && b > 0) || (a > 0 && b < 0); // Determina si el resultado debe ser negativo
+    a = Math.abs(a);
+    b = Math.abs(b);
+
+    for (let i = 0; i < b; i++) {
+        resultado += a;
+    }
+
+    return esNegativo ? -resultado : resultado;
+}
+
+// Ejemplo de uso
+const num1 = 3;
+const num2 = -4;
+
+console.log(`El resultado de multiplicar ${num1} y ${num2} mediante sumas sucesivas es:`, multiplicarPorSumasSucesivas(num1, num2));
+
+    </script>
+</body>
+</html>

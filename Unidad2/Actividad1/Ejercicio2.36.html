@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function dividirPorRestasSucesivas(dividendo, divisor) {
+    if (divisor === 0) {
+        throw new Error("La división entre cero no está definida.");
+    }
+
+    const esNegativo = (dividendo < 0 && divisor > 0) || (dividendo > 0 && divisor < 0); // Determina el signo del cociente
+    dividendo = Math.abs(dividendo);
+    divisor = Math.abs(divisor);
+
+    let cociente = 0;
+    let resto = dividendo;
+
+    while (resto >= divisor) {
+        resto -= divisor;
+        cociente++;
+    }
+
+    // Ajustar el signo del cociente según la regla de los signos
+    cociente = esNegativo ? -cociente : cociente;
+
+    // El resto siempre debe tener el mismo signo que el dividendo original
+    if (dividendo < 0) {
+        resto = -resto;
+    }
+
+    return { cociente, resto };
+}
+
+// Ejemplo de uso
+const dividendo = 17;
+const divisor = -4;
+
+const resultado = dividirPorRestasSucesivas(dividendo, divisor);
+
+console.log(`El cociente de dividir ${dividendo} entre ${divisor} es:`, resultado.cociente);
+console.log(`El resto es:`, resultado.resto);
+
+    </script>
+</body>
+</html>

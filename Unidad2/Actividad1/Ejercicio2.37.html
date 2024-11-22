@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function programaDeCena() {
+    
+    const eleccionPlato = prompt(
+        "Elija su cena:\n" +
+        "Pulse 1 si desea cenar Costilla\n" +
+        "Pulse 2 si desea cenar Pescado"
+    );
+
+    let precioPlato = 0;
+    let plato = "";
+
+    if (eleccionPlato === "1") {
+        precioPlato = 23;
+        plato = "Costilla";
+    } else if (eleccionPlato === "2") {
+        precioPlato = 15;
+        plato = "Pescado";
+    } else {
+        alert("Opción no válida. Por favor, recargue la página y elija una opción correcta.");
+        return; 
+    }
+
+    
+    const deseaPostre = confirm("¿Desea añadir postre? El postre tiene un coste adicional de 3 €.");
+
+    const precioPostre = deseaPostre ? 3 : 0;
+
+    const total = precioPlato + precioPostre;
+
+    alert(
+        `Resumen de su cena:\n` +
+        `Plato: ${plato} -> ${precioPlato} €\n` +
+        (deseaPostre ? `Postre: Sí -> 3 €\n` : `Postre: No\n`) +
+        `Total a pagar: ${total} €`
+    );
+}
+
+programaDeCena();
+
+    </script>
+</body>
+</html>
