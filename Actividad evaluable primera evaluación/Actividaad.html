@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de MaderAvilés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de MaderAvilés</h1>
+
+    <!-- Formulario para gestionar pedidos -->
+    <h2>Gestión de Pedidos</h2>
+    <form id="formPedido">
+        <label for="numeroPedido">Número de Pedido:</label>
+        <input type="number" id="numeroPedido" required><br>
+        <label for="cliente">Cliente:</label>
+        <input type="text" id="cliente" required><br>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required><br>
+        <button type="button" onclick="agregarPedido()">Añadir Pedido</button>
+    </form>
+
+    <!-- Tabla de pedidos -->
+    <h3>Pedidos</h3>
+    <table id="tablaPedidos">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Procesado</th>
+                <th>Servido</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Formulario para gestionar piezas -->
+    <h2>Gestión de Piezas</h2>
+    <form id="formPieza">
+        <label for="numeroPieza">Número de Pieza:</label>
+        <input type="number" id="numeroPieza" required><br>
+        <label for="numeroPedidoPieza">Número de Pedido:</label>
+        <input type="number" id="numeroPedidoPieza" required><br>
+        <label for="largo">Largo (cm):</label>
+        <input type="number" id="largo" step="0.1" required><br>
+        <label for="ancho">Ancho (cm):</label>
+        <input type="number" id="ancho" step="0.1" required><br>
+        <label for="grosor">Grosor (cm):</label>
+        <input type="number" id="grosor" step="0.1" required><br>
+        <label for="color">Color:</label>
+        <input type="text" id="color" value="Natural"><br>
+        <button type="button" onclick="agregarPieza()">Añadir Pieza</button>
+    </form>
+
+    <!-- Tabla de piezas -->
+    <h3>Piezas</h3>
+    <table id="tablaPiezas">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Pedido</th>
+                <th>Largo</th>
+                <th>Ancho</th>
+                <th>Grosor</th>
+                <th>Color</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+        const piezas = JSON.parse(localStorage.getItem("piezas")) || [];
+
+        function guardarDatos() {
+            localStorage.setItem("pedidos", JSON.stringify(pedidos));
+            localStorage.setItem("piezas", JSON.stringify(piezas));
+        }
+
+        function actualizarTablas() {
+            const tablaPedidos = document.querySelector("#tablaPedidos tbody");
+            tablaPedidos.innerHTML = "";
+            pedidos.forEach(p => {
+                tablaPedidos.innerHTML += `
+                    <tr>
+                        <td>${p.numero}</td>
+                        <td>${p.cliente}</td>
+                        <td>${p.fecha}</td>
+                        <td>${p.procesado ? "Sí" : "No"}</td>
+                        <td>${p.servido ? "Sí" : "No"}</td>
+                        <td><button onclick="eliminarPedido(${p.numero})">Eliminar</button></td>
+                    </tr>`;
+            });
+
+            const tablaPiezas = document.querySelector("#tablaPiezas tbody");
+            tablaPiezas.innerHTML = "";
+            piezas.forEach(p => {
+                tablaPiezas.innerHTML += `
+                    <tr>
+                        <td>${p.numero}</td>
+                        <td>${p.numeroPedido}</td>
+                        <td>${p.largo}</td>
+                        <td>${p.ancho}</td>
+                        <td>${p.grosor}</td>
+                        <td>${p.color}</td>
+                        <td><button onclick="eliminarPieza(${p.numero})">Eliminar</button></td>
+                    </tr>`;
+            });
+        }
+
+        function agregarPedido() {
+            const numero = parseInt(document.getElementById("numeroPedido").value);
+            const cliente = document.getElementById("cliente").value;
+            const fecha = document.getElementById("fecha").value;
+
+            if (pedidos.some(p => p.numero === numero)) {
+                alert("El número de pedido ya existe.");
+                return;
+            }
+
+            pedidos.push({ numero, cliente, fecha, procesado: false, servido: false });
+            guardarDatos();
+            actualizarTablas();
+        }
+
+        function eliminarPedido(numero) {
+            const index = pedidos.findIndex(p => p.numero === numero);
+            if (index !== -1) pedidos.splice(index, 1);
+            guardarDatos();
+            actualizarTablas();
+        }
+
+        function agregarPieza() {
+            const numero = parseInt(document.getElementById("numeroPieza").value);
+            const numeroPedido = parseInt(document.getElementById("numeroPedidoPieza").value);
+            const largo = parseFloat(document.getElementById("largo").value);
+            const ancho = parseFloat(document.getElementById("ancho").value);
+            const grosor = parseFloat(document.getElementById("grosor").value);
+            const color = document.getElementById("color").value;
+
+            if (!pedidos.some(p => p.numero === numeroPedido)) {
+                alert("El número de pedido asociado no existe.");
+                return;
+            }
+
+            piezas.push({ numero, numeroPedido, largo, ancho, grosor, color });
+            guardarDatos();
+            actualizarTablas();
+        }
+
+        function eliminarPieza(numero) {
+            const index = piezas.findIndex(p => p.numero === numero);
+            if (index !== -1) piezas.splice(index, 1);
+            guardarDatos();
+            actualizarTablas();
+        }
+
+        actualizarTablas();
+    </script>
+</body>
+</html>
