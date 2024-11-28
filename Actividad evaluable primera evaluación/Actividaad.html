@@ -80,6 +80,12 @@
         <input type="number" id="grosor" step="0.1" required><br>
         <label for="color">Color:</label>
         <input type="text" id="color" value="Natural"><br>
+        <label for="chapeado">Chapeado en ambas caras:</label>
+        <select id="chapeado">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+        </select><br>
+
         <button type="button" onclick="agregarPieza()">Añadir Pieza</button>
     </form>
 
@@ -94,6 +100,7 @@
                 <th>Ancho</th>
                 <th>Grosor</th>
                 <th>Color</th>
+                <th>Chapeado por ambas caras</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -135,10 +142,12 @@
                         <td>${p.ancho}</td>
                         <td>${p.grosor}</td>
                         <td>${p.color}</td>
+                        <td>${p.chapeado}</td>
                         <td><button onclick="eliminarPieza(${p.numero})">Eliminar</button></td>
                     </tr>`;
             });
         }
+
 
         function agregarPedido() {
             const numero = parseInt(document.getElementById("numeroPedido").value);
@@ -169,16 +178,23 @@
             const ancho = parseFloat(document.getElementById("ancho").value);
             const grosor = parseFloat(document.getElementById("grosor").value);
             const color = document.getElementById("color").value;
+            const chapeado = document.getElementById("chapeado").value;
 
-            if (!pedidos.some(p => p.numero === numeroPedido)) {
+            if (piezas.some(p => p.numero === numero)) {
+                alert("El número de pieza ya existe.");
+                return;
+            }
+            
+           /* if (!pedidos.some(p => p.numero === numeroPedido)) {
                 alert("El número de pedido asociado no existe.");
                 return;
             }
-
-            piezas.push({ numero, numeroPedido, largo, ancho, grosor, color });
+            */
+            piezas.push({ numero, numeroPedido, largo, ancho, grosor, color, chapeado });
             guardarDatos();
             actualizarTablas();
         }
+
 
         function eliminarPieza(numero) {
             const index = piezas.findIndex(p => p.numero === numero);
