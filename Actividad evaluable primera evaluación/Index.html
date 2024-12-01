@@ -43,4 +43,13 @@
     <button type="button" id="BotonPiezas">Añadir Pieza</button>
     <div id="formulario"></div>
 </body>
+<script>
+    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+    const piezas = JSON.parse(localStorage.getItem("piezas")) || [];
+
+    function guardarDatos() {
+            localStorage.setItem("pedidos", JSON.stringify(pedidos));
+            localStorage.setItem("piezas", JSON.stringify(piezas));
+        }
+</script>
 </html>
