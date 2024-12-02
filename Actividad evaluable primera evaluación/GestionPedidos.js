@@ -13,8 +13,11 @@ function tabla(){
     </form>`;
 }
 
+
+
+
 function tablapedidos(){
-    document.getElementById('BotonPedidos').innerHTML=`
+    document.getElementById('tablaPedidosContenedor').innerHTML=`
     <h3>Pedidos</h3>
     <table id="tablaPedidos">
         <thead>
@@ -31,10 +34,10 @@ function tablapedidos(){
     </table>`;
 }
 
-document.getElementById("BotonPedidos").addEventListener("click", tabla);
+//document.getElementById("BotonPedidos").addEventListener("click", tabla);
 
-function agregarPedido() {
-
+function agregarPedido(event) {
+    event.preventDefault();
     
     const numero = parseInt(document.getElementById("numeroPedido").value);
     const cliente = document.getElementById("cliente").value;
@@ -47,5 +50,29 @@ function agregarPedido() {
 
     pedidos.push({ numero, cliente, fecha, procesado: false, servido: false });
     guardarDatos();
+    
+
+    if (!document.getElementById("tablaPedidos")){
+        tablapedidos();
+    }
+
     actualizarTablas();
+}
+
+
+
+function actualizarTablas() {
+    const tablaPedidos = document.querySelector("#tablaPedidos tbody");
+    tablaPedidos.innerHTML = "";
+    pedidos.forEach(p => {
+        tablaPedidos.innerHTML += `
+            <tr>
+                <td>${p.numero}</td>
+                <td>${p.cliente}</td>
+                <td>${p.fecha}</td>
+                <td>${p.procesado ? "Sí" : "No"}</td>
+                <td>${p.servido ? "Sí" : "No"}</td>
+                <td><button onclick="eliminarPedido(${p.numero})">Eliminar</button></td>
+            </tr>`;
+    });
 }
