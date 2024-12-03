@@ -11,6 +11,10 @@ function tabla(){
         <input type="date" id="fecha" required><br>
         <button type="submit" >Añadir Pedido</button>
     </form>`;
+
+    const fechaInput = document.getElementById('fecha');
+    const today = new Date().toISOString().split('T')[0];
+    fechaInput.setAttribute('max', today);
 }
 
 
@@ -43,10 +47,23 @@ function agregarPedido(event) {
     const cliente = document.getElementById("cliente").value;
     const fecha = document.getElementById("fecha").value;
 
+    if (numero <= 0) {
+        alert("El número de pedido debe ser un valor positivo mayor que 0.");
+        return;
+    }
+    
+
     if (pedidos.some(p => p.numero === numero)) {
         alert("El número de pedido ya existe.");
         return;
     }
+
+    const today = new Date().toISOString().split('T')[0];
+    if (fecha > today) {
+        alert("La fecha no puede ser posterior al día de hoy.");
+        return;
+    }
+    
 
     pedidos.push({ numero, cliente, fecha, procesado: false, servido: false });
     guardarDatos();
@@ -75,4 +92,12 @@ function actualizarTablas() {
                 <td><button onclick="eliminarPedido(${p.numero})">Eliminar</button></td>
             </tr>`;
     });
+}
+
+
+function eliminarPedido(numero) {
+    const index = pedidos.findIndex(p => p.numero === numero);
+    if (index !== -1) pedidos.splice(index, 1);
+    guardarDatos();
+    actualizarTablas();
 }
