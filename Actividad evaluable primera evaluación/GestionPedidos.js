@@ -73,12 +73,12 @@ function agregarPedido(event) {
         tablapedidos();
     }
 
-    actualizarTablas();
+    actualizarTablasPedido();
 }
 
 
 
-function actualizarTablas() {
+function actualizarTablasPedido() {
     const tablaPedidos = document.querySelector("#tablaPedidos tbody");
     tablaPedidos.innerHTML = "";
     pedidos.forEach(p => {
@@ -99,5 +99,5 @@ function eliminarPedido(numero) {
     const index = pedidos.findIndex(p => p.numero === numero);
     if (index !== -1) pedidos.splice(index, 1);
     guardarDatos();
-    actualizarTablas();
+    actualizarTablasPedido();
 }

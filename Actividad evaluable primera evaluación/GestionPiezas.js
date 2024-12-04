@@ -66,13 +66,18 @@ function agregarPieza(event) {
         return;
     }
     */
+
+    if (!document.getElementById("tablaPiezasAñadidas")){
+        tablaPiezasAñadidas();
+    }
+
     piezas.push({ numero, numeroPedido, largo, ancho, grosor, color, chapeado });
     guardarDatos();
-    actualizarTablas();
+    actualizarTablasPiezas();
 }
 
 
-function actualizarTablas(){
+function actualizarTablasPiezas(){
     const tablaPiezasAñadidas = document.querySelector("#tablaPiezasAñadidas tbody");
             tablaPiezasAñadidas.innerHTML = "";
             piezas.forEach(p => {
@@ -94,5 +99,5 @@ function eliminarPieza(numero) {
     const index = piezas.findIndex(p => p.numero === numero);
     if (index !== -1) piezas.splice(index, 1);
     guardarDatos();
-    actualizarTablas();
+    actualizarTablasPiezas();
 }
