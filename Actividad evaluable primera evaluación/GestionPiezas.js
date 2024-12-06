@@ -56,6 +56,11 @@ function agregarPieza(event) {
     const color = document.getElementById("color").value;
     const chapeado = document.getElementById("chapeado").value;
 
+    if (numero <= 0|| numeroPedido <= 0|| largo <= 0|| ancho <= 0|| grosor <= 0){
+        alert("Todos los campos deben estar en positivo");
+        return;
+    }
+
     if (piezas.some(p => p.numero === numero)) {
         alert("El número de pieza ya existe.");
         return;
