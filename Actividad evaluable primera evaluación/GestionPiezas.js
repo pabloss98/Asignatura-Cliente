@@ -20,6 +20,12 @@ function tablaPiezas(){
             <option value="No">No</option>
             <option value="Sí">Sí</option>
         </select><br>
+        <label for="cortada">Cortada:</label>
+        <select id="cortada">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+        </select><br>
+    
 
         <button type="submit">Añadir Pieza</button>
     </form>`;
@@ -38,6 +44,7 @@ function tablaPiezasAñadidas(){
                 <th>Grosor</th>
                 <th>Color</th>
                 <th>Chapeado por ambas caras</th>
+                <th>Cortada</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -55,6 +62,7 @@ function agregarPieza(event) {
     const grosor = parseFloat(document.getElementById("grosor").value);
     const color = document.getElementById("color").value;
     const chapeado = document.getElementById("chapeado").value;
+    const cortada = document.getElementById("cortada").value;
 
     if (numero <= 0|| numeroPedido <= 0|| largo <= 0|| ancho <= 0|| grosor <= 0){
         alert("Todos los campos deben estar en positivo");
@@ -76,7 +84,7 @@ function agregarPieza(event) {
         tablaPiezasAñadidas();
     }
 
-    piezas.push({ numero, numeroPedido, largo, ancho, grosor, color, chapeado });
+    piezas.push({ numero, numeroPedido, largo, ancho, grosor, color, chapeado, cortada });
     guardarDatos();
     actualizarTablasPiezas();
 }
@@ -95,6 +103,7 @@ function actualizarTablasPiezas(){
                         <td>${p.grosor}</td>
                         <td>${p.color}</td>
                         <td>${p.chapeado}</td>
+                        <td>${p.cortada}</td>
                         <td><button onclick="eliminarPieza(${p.numero})">Eliminar</button></td>
                     </tr>`;
             });
