@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+        <h1>IMC</h1>
+    <form id="datospersona">
+        <label for="nombre" >Nombre: </label>
+        <input type="text" id="nombrepersona" placeholder="nombre" required><br>
+        <label for="peso">Peso: </label>
+        <input type="number" id="pesopersona" placeholder="peso" required><br>
+        <label for="altura">Altura: </label>
+        <input type="number" id="alturapersona" placeholder="altura" required><br>
+        <button type="button" onclick="agregardatos()">Añadir</button>
+        <button type="button" onclick="modificardatos()">Modificar</button>
+        <button type="button" onclick="calcularIMC()">Calcular</button>
+    </form>
+
+    <div id="resultados"></div>
+
+    <br>
+    <a href="IMC.html" style="text-decoration: none;">Personas fuera del peso normal</a>
+
+    <script>
+
+        const persona = JSON.parse(localStorage.getItem("persona")) || [];
+        
+        function guardarDatos() {
+            localStorage.setItem("persona", JSON.stringify(persona));
+        }
+
+        function agregardatos(){
+            const nombre = document.getElementById("nombrepersona").value;
+            const peso = parseFloat(document.getElementById("pesopersona").value);
+            const altura = parseFloat(document.getElementById("alturapersona").value);
+
+            if (persona.some(p => p.nombre === nombre)) {
+                alert("El usuario ya existe.");
+                return;
+            }
+
+            persona.push({nombre, peso, altura});
+            guardarDatos();
+            alert("El usuario se ha guardado con exito");
+        }
+        
+
+        function modificardatos(){
+            const nombre = document.getElementById("nombrepersona").value;
+            const peso = parseFloat(document.getElementById("pesopersona").value);
+            const altura = parseFloat(document.getElementById("alturapersona").value);
+
+            const index = persona.findIndex(p => p.nombre === nombre);
+
+            if (index === -1){
+                alert("El usuario no existe");
+                return;
+            }else{
+                persona.splice(index, 1);
+                persona.push({nombre, peso, altura});
+                guardarDatos();
+                alert("El usuario se ha modificado con exito");
+            }
+        }
+
+
+        function calcularIMC(){
+            //buscan un único usuario en base al nombre ingresado en el formulario
+            //const nombre = document.getElementById("nombrepersona").value;
+            //const personaEncontrada = persona.find(p => p.nombre === nombre);
+
+            const personaFueraDeRango = [];
+            const resultadosDiv = document.getElementById("resultados");
+
+            resultadosDiv.innerHTML = ""; // limpia los resultados anteriores
+
+            persona.forEach(({ nombre, peso, altura }) => {
+                if (!peso || !altura || peso <= 0 || altura <= 0) {
+                    resultadosDiv.innerHTML += `<p>El usuario ${nombre} tiene datos inválidos.</p>`;
+                 } else {
+                    const IMC = peso / Math.pow(altura, 2);
+                    if (IMC <= 18.48){
+                        resultadosDiv.innerHTML += `<p>El IMC de ${nombre} es ${IMC.toFixed(2)} la persona es demasiado delgada</p>`;
+                        personaFueraDeRango.push({ nombre, peso, altura, IMC });
+                    }else if(IMC > 18.48 && IMC <= 24.99){
+                        resultadosDiv.innerHTML += `<p>El IMC de ${nombre} es ${IMC.toFixed(2)} la persona tiene un peso normal</p>`;
+                    }else{
+                        resultadosDiv.innerHTML += `<p>El IMC de ${nombre} es ${IMC.toFixed(2)} la persona está demasado obesa</p>`;
+                        personaFueraDeRango.push({ nombre, peso, altura, IMC });
+                    }
+                         }
+
+                     });
+
+                     if (personaFueraDeRango.length > 0) {
+                localStorage.setItem("personasFueraDeRango", JSON.stringify(personaFueraDeRango));
+            }
+            
+        }
+        
+
+
+
+
+    </script>
+</body>
+</html>

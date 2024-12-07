@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personas Fuera de Rango</title>
+</head>
+<body>
+    <h1>Personas Fuera del Rango Normal</h1>
+    <div id="resultados"></div>
+
+    <script>
+        // Recuperar los datos de las personas fuera de rango desde localStorage
+        const personaFueraDeRango = JSON.parse(localStorage.getItem("personasFueraDeRango")) || [];
+
+        const resultadosDiv = document.getElementById("resultados");
+
+        if (personaFueraDeRango.length === 0) {
+            resultadosDiv.innerHTML = "<p>No hay personas fuera del peso normal.</p>";
+        } else {
+            personaFueraDeRango.forEach(({ nombre, peso, altura, IMC }) => {
+                resultadosDiv.innerHTML += `<p>El IMC de ${nombre} es ${IMC.toFixed(2)}. Peso: ${peso} kg, Altura: ${altura} m.</p>`;
+            });
+        }
+    </script>
+</body>
+</html>
