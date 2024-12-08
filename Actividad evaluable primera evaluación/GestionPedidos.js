@@ -8,23 +8,27 @@ function tabla() {
             <input type="text" id="cliente" required><br>
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" required><br>
+            <label>Procesado:</label>
+            <input type="checkbox" id="procesadoModificar"><br>
+            <label>Servido:</label>
+            <input type="checkbox" id="servidoModificar"><br>
             <button type="submit" >Añadir Pedido</button>
         </form>
 
-        <h3>Modificar Pedido</h3>
-    <form id="formModificar" onsubmit="ModificarPedido(event)">
-        <label>Número de Pedido:</label>
-        <input type="number" id="numeroPedidoModificar" min="1" required><br>
-        <label>Cliente:</label>
-        <input type="text" id="clienteModificar" maxlength="50" required><br>
-        <label>Fecha de Pedido:</label>
-        <input type="date" id="fechaPedidoModificar" required><br>
-        <label>Procesado:</label>
-        <input type="checkbox" id="procesadoModificar"><br>
-        <label>Servido:</label>
-        <input type="checkbox" id="servidoModificar"><br>
-        <button type="submit">Modificar Pedido</button>
-    </form>`;
+        <h2>Modificar Pedido</h2>
+        <form id="formModificar" onsubmit="ModificarPedido(event)">
+            <label>Número de Pedido:</label>
+            <input type="number" id="numeroPedidoModificar" min="1" required><br>
+            <label>Cliente:</label>
+            <input type="text" id="clienteModificar" maxlength="50" required><br>
+            <label>Fecha de Pedido:</label>
+            <input type="date" id="fechaPedidoModificar" required><br>
+            <label>Procesado:</label>
+            <input type="checkbox" id="procesadoModificar"><br>
+            <label>Servido:</label>
+            <input type="checkbox" id="servidoModificar"><br>
+            <button type="submit">Modificar Pedido</button>
+        </form>`;
 
     const fechaInput = document.getElementById('fecha');
     const today = new Date().toISOString().split('T')[0];
@@ -57,6 +61,8 @@ function agregarPedido(event) {
     const numero = parseInt(document.getElementById("numeroPedido").value);
     const cliente = document.getElementById("cliente").value;
     const fecha = document.getElementById("fecha").value;
+    const procesado = document.getElementById('procesadoModificar').checked;
+    const servido = document.getElementById('servidoModificar').checked;
 
     if (numero <= 0) {
         alert("El número de pedido debe ser un valor positivo mayor que 0.");

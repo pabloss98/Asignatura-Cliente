@@ -28,6 +28,36 @@ function tablaPiezas(){
     
 
         <button type="submit">Añadir Pieza</button>
+    </form>
+    
+    
+    <h2>Modificar Pieza</h2>
+    <form onsubmit="ModificarPieza(event)" id="formModificar">
+        <label for="numeroPieza">Número de Pieza:</label>
+        <input type="number" id="numeroPiezaModificar" required><br>
+        <label for="numeroPedidoPieza">Número de Pedido:</label>
+        <input type="number" id="numeroPedidoPiezaModificar" required><br>
+        <label for="largo">Largo (cm):</label>
+        <input type="number" id="largoModificar" step="0.1" required><br>
+        <label for="ancho">Ancho (cm):</label>
+        <input type="number" id="anchoModificar" step="0.1" required><br>
+        <label for="grosor">Grosor (cm):</label>
+        <input type="number" id="grosorModificar" step="0.1" required><br>
+        <label for="color">Color:</label>
+        <input type="text" id="colorModificar" value="Natural"><br>
+        <label for="chapeado">Chapeado en ambas caras:</label>
+        <select id="chapeadoModificar">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+        </select><br>
+        <label for="cortada">Cortada:</label>
+        <select id="cortadaModificar">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+        </select><br>
+    
+
+        <button type="submit">Modificar Pieza</button>
     </form>`;
 }
 
@@ -90,6 +120,46 @@ function agregarPieza(event) {
 }
 
 
+function ModificarPieza(event){
+    event.preventDefault(); //Prevenir el envio de formulario
+
+    const numero = parseInt(document.getElementById("numeroPiezaModificar").value);
+    const numeroPedido = parseInt(document.getElementById("numeroPedidoPiezaModificar").value);
+    const largo = parseFloat(document.getElementById("largoModificar").value);
+    const ancho = parseFloat(document.getElementById("anchoModificar").value);
+    const grosor = parseFloat(document.getElementById("grosorModificar").value);
+    const color = document.getElementById("colorModificar").value;
+    const chapeado = document.getElementById("chapeadoModificar").value;
+    const cortada = document.getElementById("cortadaModificar").value;
+
+    // Buscar el índice del pedido por su número
+    const index = piezas.findIndex(p => p.numero === numero);
+
+    if (index === -1) {
+        alert("La pieza no existe.");
+        return;
+    }
+
+    // Actualizar los datos de la pieza
+    piezas[index] = {
+        numero: numero,
+        numeroPedido,
+        largo,
+        ancho,
+        grosor,
+        color,
+        chapeado,
+        cortada,
+    };
+
+    // Guardar los cambios en localStorage
+    guardarDatos();
+
+    // Actualizar la tabla de piezas
+    actualizarTablasPiezas();
+
+}
+
 function actualizarTablasPiezas(){
     const tablaPiezasAñadidas = document.querySelector("#tablaPiezasAñadidas tbody");
             tablaPiezasAñadidas.innerHTML = "";
@@ -114,4 +184,8 @@ function eliminarPieza(numero) {
     if (index !== -1) piezas.splice(index, 1);
     guardarDatos();
     actualizarTablasPiezas();
+}
+
+function guardarDatos() {
+    localStorage.setItem("piezas", JSON.stringify(piezas));
 }
