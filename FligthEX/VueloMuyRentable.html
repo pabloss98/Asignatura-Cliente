@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FligthEX</title>
+    
+</head>
+<body>
+    <h1>Vuelos Muy Rentables</h1>
+    <div id="resultados"></div>
+
+   <script>
+    
+   const VueloMuyRentable = JSON.parse(localStorage.getItem("VueloMuyRentable")) || [];
+
+    const resultadosDiv = document.getElementById("resultados");
+
+    if (VueloMuyRentable.length === 0) {
+        resultadosDiv.innerHTML = "<p>No hay vuelos muy rentables.</p>";
+    } else {
+        VueloMuyRentable.forEach(({ codigo}) => {
+            resultadosDiv.innerHTML += `<p>El vuelo ${codigo} es muy rentable.</p>`;
+        });
+    }
+    </script>
+</body>
+</html>

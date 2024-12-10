@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FligthEX</title>
+    <script src="Vuelo.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vuelos</h1>
+    <form id="datosvuelo">
+        <label for="codigo" >Codigo: </label>
+        <input type="text" id="codigo"  required><br>
+        <label for="numeroplazas">Nº de plazas: </label>
+        <input type="number" id="numeroplazas"  required><br>
+        <label for="importe">Importe: </label>
+        <input type="number" id="importe"  required><br>
+        <button type="button" onclick="agregardatos()">Añadir</button>
+        <button type="button" onclick="modificardatos()">Modificar</button>
+        <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <div id="resultados"></div>
+
+    <br>
+    <a href="VueloMuyRentable.html" style="text-decoration: none;">Vuelos Muy Rentables</a>
+</body>
+</html>
