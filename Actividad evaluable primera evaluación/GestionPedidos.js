@@ -93,7 +93,6 @@ function ModificarPedido(event) {
     const procesado = document.getElementById('procesadoModificar').checked;
     const servido = document.getElementById('servidoModificar').checked;
 
-    // Buscar el índice del pedido por su número
     const index = pedidos.findIndex(p => p.numero === numeroPedido);
 
     if (index === -1) {
@@ -101,7 +100,6 @@ function ModificarPedido(event) {
         return;
     }
 
-    // Actualizar los datos del pedido
     pedidos[index] = {
         numero: numeroPedido,
         cliente,
@@ -110,10 +108,9 @@ function ModificarPedido(event) {
         servido,
     };
 
-    // Guardar los cambios en localStorage
+ 
     guardarDatos();
 
-    // Actualizar la tabla de pedidos
     actualizarTablasPedido();
 
     

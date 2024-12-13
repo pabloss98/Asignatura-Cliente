@@ -104,11 +104,6 @@ function agregarPieza(event) {
         return;
     }
     
-   /* if (!pedidos.some(p => p.numero === numeroPedido)) {
-        alert("El número de pedido asociado no existe.");
-        return;
-    }
-    */
 
     if (!document.getElementById("tablaPiezasAñadidas")){
         tablaPiezasAñadidas();
@@ -132,7 +127,6 @@ function ModificarPieza(event){
     const chapeado = document.getElementById("chapeadoModificar").value;
     const cortada = document.getElementById("cortadaModificar").value;
 
-    // Buscar el índice del pedido por su número
     const index = piezas.findIndex(p => p.numero === numero);
 
     if (index === -1) {
@@ -140,7 +134,6 @@ function ModificarPieza(event){
         return;
     }
 
-    // Actualizar los datos de la pieza
     piezas[index] = {
         numero: numero,
         numeroPedido,
@@ -152,10 +145,9 @@ function ModificarPieza(event){
         cortada,
     };
 
-    // Guardar los cambios en localStorage
+    
     guardarDatos();
 
-    // Actualizar la tabla de piezas
     actualizarTablasPiezas();
 
 }

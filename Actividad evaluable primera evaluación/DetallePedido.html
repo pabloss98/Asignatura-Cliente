@@ -46,12 +46,10 @@
     <div id="detallePedido"></div>
 
     <script>
-        // Función para mostrar el detalle del pedido
         function mostrarDetallePedido() {
             const numeroPedido = parseInt(document.getElementById("numeroPedido").value);
             const piezas = JSON.parse(localStorage.getItem("piezas")) || [];
 
-            // Filtrar las piezas que pertenecen al pedido solicitado
             const piezasPedido = piezas.filter(pieza => pieza.numeroPedido === numeroPedido);
 
             if (piezasPedido.length === 0) {
@@ -59,7 +57,6 @@
                 return;
             }
 
-            // Construir la tabla con los datos del pedido
             let tablaHTML = `
                 <table>
                     <thead>
@@ -77,8 +74,8 @@
             `;
 
             piezasPedido.forEach(pieza => {
-                const superficie = pieza.largo * pieza.ancho; // Superficie = Largo × Ancho
-                const volumen = superficie * pieza.grosor;   // Volumen = Superficie × Grosor
+                const superficie = pieza.largo * pieza.ancho; 
+                const volumen = superficie * pieza.grosor;   
 
                 tablaHTML += `
                     <tr>
