@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserList from './Components/Userlist';
 
 function App() {
+  const handleEdit = (user) => {
+    console.log('Editar usuario:', user);
+  };
+
+  const handleDelete = (username) => {
+    console.log('Eliminar usuario:', username);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mt-4">
+      <h1>Gestión de Usuarios</h1>
+      <UserList onEdit={handleEdit} onDelete={handleDelete} />
     </div>
   );
 }
