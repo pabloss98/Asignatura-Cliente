@@ -10,7 +10,7 @@ function UserList({ onEdit, onDelete }) {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost/api/get_users.php');
+      const response = await fetch('http://localhost/control-insulina/backend/get_users.php');// revisar esto
       const data = await response.json();
       setUsers(data);
     } catch (error) {
