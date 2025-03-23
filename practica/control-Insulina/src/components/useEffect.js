@@ -48,8 +48,6 @@ const Estadisticas = ({ mes, año }) => {
       {
         label: 'Valor LENTA',
         data: estadisticas.valores, 
-        backgroundColor: 'rgba(241, 100, 211, 0.2)',
-        borderColor: 'rgb(94, 101, 128)', 
         borderWidth: 1, 
       },
     ],
