@@ -83,19 +83,19 @@ const ListaDeUsuarios = () => {
   };
 
   return (
-    <div>
-      <h2>Usuarios Registrados</h2>
+    <section>
+      <h2>Usuarios Registrados en el Sistema</h2>
       {usuarios.length === 0 ? (
-        <p>No hay usuarios disponibles.</p>
+        <p>Aún no hay usuarios en la base de datos.</p>
       ) : (
-        <div className="tabla-usuarios">
+        <div className="usuarios-lista">
           <table>
             <thead>
               <tr>
-                <th>Usuario</th>
+                <th>Nombre de Usuario</th>
                 <th>Nombre Completo</th>
                 <th>Fecha de Nacimiento</th>
-                <th>Acciones</th>
+                <th>Acciones Disponibles</th>
               </tr>
             </thead>
             <tbody>
@@ -105,9 +105,9 @@ const ListaDeUsuarios = () => {
                   <td>{`${usuario.nombre} ${usuario.apellidos}`}</td>
                   <td>{usuario.fecha_nacimiento}</td>
                   <td>
-                    <button onClick={() => manejarModificar(usuario)}>Modificar</button>
-                    <button onClick={() => mostrarEstadisticas(usuario)}>Estadísticas</button>
-                    <button onClick={() => eliminarUsuario(usuario.idUsuario)}>Eliminar</button>
+                    <button onClick={() => manejarModificar(usuario)}>Editar Usuario</button>
+                    <button onClick={() => mostrarEstadisticas(usuario)}>Mostrar Estadísticas</button>
+                    <button onClick={() => eliminarUsuario(usuario.idUsuario)}>Eliminar Registro</button>
                   </td>
                 </tr>
               ))}
@@ -115,15 +115,16 @@ const ListaDeUsuarios = () => {
           </table>
         </div>
       )}
-
+  
       {estadisticasVisible && usuarioEnEdicion && (
         <div className="estadisticas">
-          <h3>Estadísticas de {usuarioEnEdicion.usuario}</h3>
+          <h3>Detalles de Estadísticas para {usuarioEnEdicion.usuario}</h3>
           <Estadisticas mes={new Date().getMonth() + 1} año={new Date().getFullYear()} />
         </div>
       )}
-    </div>
+    </section>
   );
+  
 };
 
 export default ListaDeUsuarios;

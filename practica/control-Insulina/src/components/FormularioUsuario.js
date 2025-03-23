@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 
-const UserForm = () => {
+const FormularioUsuario = () => {
     const { addUser, validationPatterns } = useContext(UserContext);
     const [user, setUser] = useState({
         usuario: '',
@@ -22,15 +22,21 @@ const UserForm = () => {
 
     const validatecontra = (contra) => validationPatterns.contra.test(contra);
 
-    const validateAge = (fecha_nacimiento) => {
-        const today = new Date();
-        const birth = new Date(fecha_nacimiento);
-        const age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-        return age > 18 || (age === 18 && monthDiff >= 0);
+    const validaredad = (fecha_nacimiento) => {
+        const hoy = new Date();
+        const nacimiento = new Date(fecha_nacimiento);
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const mesHoy = hoy.getMonth();
+        const mesNacimiento = nacimiento.getMonth();
+        if (mesHoy < mesNacimiento || (mesHoy === mesNacimiento && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
+    
+        return edad >= 18;
     };
+    
 
-    const handleSubmit = async (e) => {
+    const envio = async (e) => {
         e.preventDefault();
         setError(''); 
 
@@ -44,8 +50,8 @@ const UserForm = () => {
             return;
         }
 
-        if (!validateAge(user.fecha_nacimiento)) {
-            setError('Debes ser mayor de edad (18 años o más).');
+        if (!validaredad(user.fecha_nacimiento)) {
+            setError('Debes ser mayor de edad.');
             return;
         }
 
@@ -59,7 +65,7 @@ const UserForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={envio}>
             {/* Mostrar el mensaje de error si existe */}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <input 
@@ -106,4 +112,4 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default FormularioUsuario;
